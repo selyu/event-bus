@@ -17,7 +17,7 @@ public class EventBus {
                 continue;
 
             Class<?> eventClass = declaredMethod.getParameterTypes()[0];
-            Set<Subscriber> subscribers = eventToSubscriberMap.getOrDefault(eventClass, Collections.emptySet());
+            Set<Subscriber> subscribers = eventToSubscriberMap.getOrDefault(eventClass, new HashSet<>());
             subscribers.add(new Subscriber(object, declaredMethod));
 
             eventToSubscriberMap.put(eventClass, subscribers);
@@ -29,7 +29,7 @@ public class EventBus {
         if (!eventToSubscriberMap.containsKey(object.getClass()))
             return;
 
-        Set<Subscriber> subscribers = eventToSubscriberMap.getOrDefault(object.getClass(), Collections.emptySet());
+        Set<Subscriber> subscribers = eventToSubscriberMap.getOrDefault(object.getClass(), new HashSet<>());
         if (subscribers.isEmpty())
             return;
 
