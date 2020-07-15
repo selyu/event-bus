@@ -1,36 +1,29 @@
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.selyu.event.EventBus;
 import org.selyu.event.annotation.Subscribe;
 
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class EventBusTest {
     private static final String COMPARE_AGAINST = "1Ka0kUC97NLQ1nz8Ar";
-
-    private static EventBus eventBus = new EventBus();
+    private static final EventBus EVENT_BUS = new EventBus();
     private static Object object;
 
     @Test
     public void subscribe_and_post() {
-        eventBus.register(this);
-        eventBus.post(COMPARE_AGAINST);
+        EVENT_BUS.register(this);
+        EVENT_BUS.post(COMPARE_AGAINST);
     }
 
     @Test
     public void subscribe_and_unsubscribe() {
-        eventBus.register(this);
-        eventBus.unregister(this);
-        eventBus.post(System.out);
+        EVENT_BUS.register(this);
+        EVENT_BUS.unregister(this);
+        EVENT_BUS.post(System.out);
         assertNull(object);
-    }
-
-    @After
-    public void cleanup() {
-        eventBus = null;
     }
 
     @Subscribe
