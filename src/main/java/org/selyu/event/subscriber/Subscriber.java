@@ -19,4 +19,8 @@ public final class Subscriber {
         method.invoke(owner, object);
         method.setAccessible(false);
     }
+
+    public Object getOwner() {
+        return owner;
+    }
 }

@@ -24,6 +24,11 @@ public class EventBus {
         }
     }
 
+    public void unregister(Object object) {
+        Objects.requireNonNull(object, "object to be unregistered cannot be null!");
+        eventToSubscriberMap.values().forEach(set -> set.removeIf(subscriber -> object.equals(subscriber.getOwner())));
+    }
+
     public void post(Object object) {
         Objects.requireNonNull(object, "posted object cannot be null!");
         if (!eventToSubscriberMap.containsKey(object.getClass()))
